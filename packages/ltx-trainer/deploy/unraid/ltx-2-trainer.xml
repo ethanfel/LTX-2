@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>ltx-2-trainer</Name>
+  <Repository>ghcr.io/ethanfel/ltx-2-trainer:latest</Repository>
+  <Registry>https://github.com/ethanfel/LTX-2/pkgs/container/ltx-2-trainer</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/ethanfel/LTX-2</Support>
+  <Project>https://github.com/ethanfel/LTX-2</Project>
+  <Overview>LTX-2 trainer (torch 2.11 / CUDA 13, Blackwell-ready). Starts as a keep-alive container: open the container Console (&gt;_) and run scripts/process_dataset.py then scripts/train.py. Requires the Unraid "Nvidia Driver" plugin. Mount your LTX-2 checkpoint + Gemma encoder at /models (read-only) and a working folder at /workspace (read-write).</Overview>
+  <Category>AI:</Category>
+  <WebUI/>
+  <TemplateURL/>
+  <Icon>https://avatars.githubusercontent.com/u/8552096?s=200&amp;v=4</Icon>
+  <ExtraParams>--runtime=nvidia --ipc=host --restart=no</ExtraParams>
+  <PostArgs>tail -f /dev/null</PostArgs>
+  <CPUset/>
+  <DateInstalled/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires>Unraid "Nvidia Driver" plugin (ich777) must be installed.</Requires>
+  <Config Name="Models (checkpoint + Gemma)" Target="/models" Default="/mnt/user/ai/ltx2/models" Mode="ro" Description="Folder holding the LTX-2 .safetensors checkpoint and the Gemma text-encoder directory. Mounted read-only." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/ai/ltx2/models</Config>
+  <Config Name="Workspace (data / configs / output)" Target="/workspace" Default="/mnt/user/ai/ltx2/workspace" Mode="rw" Description="Datasets, preprocessed latents, YAML configs, and output checkpoints / logs / validation samples." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/ai/ltx2/workspace</Config>
+  <Config Name="GPU (NVIDIA_VISIBLE_DEVICES)" Target="NVIDIA_VISIBLE_DEVICES" Default="all" Mode="" Description="GPU to expose. Use 'all', or a specific UUID from 'nvidia-smi -L' on the Unraid terminal to pin one GPU." Type="Variable" Display="always" Required="true" Mask="false">all</Config>
+  <Config Name="NVIDIA_DRIVER_CAPABILITIES" Target="NVIDIA_DRIVER_CAPABILITIES" Default="all" Mode="" Description="Driver capabilities exposed to the container." Type="Variable" Display="advanced" Required="true" Mask="false">all</Config>
+  <Config Name="WANDB_API_KEY" Target="WANDB_API_KEY" Default="" Mode="" Description="Optional Weights &amp; Biases API key. Leave blank to disable W&amp;B (or set WANDB_MODE=offline)." Type="Variable" Display="advanced" Required="false" Mask="true"/>
+  <Config Name="HF_TOKEN" Target="HF_TOKEN" Default="" Mode="" Description="Optional Hugging Face token, only needed if pushing the trained LoRA to the Hub (hub.push_to_hub: true)." Type="Variable" Display="advanced" Required="false" Mask="true"/>
+</Container>
