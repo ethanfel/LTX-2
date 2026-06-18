@@ -1,0 +1,61 @@
+# Keep the build context small & free of host-specific / huge artifacts.
+
+# VCS & tooling
+.git
+.github
+.claude
+.idea
+.vscode
+
+# Python caches / build outputs
+**/__pycache__
+**/*.py[oc]
+**/*.egg-info
+build/
+dist/
+wheels/
+.ruff_cache
+.pytest_cache
+
+# Virtual environments (rebuilt inside the image)
+.venv
+**/.venv
+.python-version
+
+# Test assets (large Git-LFS media — not needed to train)
+**/tests/
+
+# Training/runtime artifacts that must never enter the image
+checkpoints/
+**/checkpoints/
+wandb/
+**/wandb/
+.wandb
+projects/
+tmp/
+
+# Model weights & media (mounted at run time instead)
+*.safetensors
+*.sft
+*.ckpt
+*.pt
+*.mp4
+*.mov
+*.wav
+*.mp3
+*.m4a
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+*.exr
+*.heic
+*.heif
+
+# Docs not needed in the image
+*.md
+!packages/*/README.md
+
+# OS cruft
+.DS_Store
