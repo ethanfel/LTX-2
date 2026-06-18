@@ -12,7 +12,10 @@ stack baked into the image. With 96 GB you can use the standard configs (no low-
 ## 1. Prerequisites
 
 - **Nvidia Driver plugin** installed (Unraid → Apps → search "Nvidia Driver", by *ich777*), then reboot.
-  Verify on the Unraid terminal: `nvidia-smi` lists the RTX PRO 6000.
+  The image ships **torch cu130**, so the driver must support **CUDA 13 — i.e. driver ≥ 580**
+  (the latest "Production" branch; required for Blackwell anyway). In the plugin, pick a recent
+  driver, then verify on the Unraid terminal: `nvidia-smi` lists the RTX PRO 6000 and shows
+  `CUDA Version: 13.x` (top-right).
 - The **LTX-2 checkpoint** (`.safetensors`) and the **Gemma text-encoder** directory downloaded
   onto a share (these are large — tens of GB — and are **not** in the image).
 
